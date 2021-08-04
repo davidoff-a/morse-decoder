@@ -40,15 +40,20 @@ const MORSE_TABLE = {
   ' ': ' '
 };
 
+function strChange(line){
+  return line.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-').replace(/\*{10}/, ' ');
+}
+
 function decode(expr) {
   let arr = [];
   let arr1 = [];
   expr = expr.replace(/(.{10})/gi, '$1 ');
   arr = expr.trim().split(' ');
-  arr1 = arr.map(item => MORSE_TABLE[item.replace(/00/g, '').replace(/10/g, '.').replace(/11/g, '-').replace(/\*{10}/, ' ')]).join('');
+  arr1 = arr.map(item => MORSE_TABLE[strChange(item)]).join('');
   return arr1;
 }
 
 module.exports = {
   decode
 };
+
